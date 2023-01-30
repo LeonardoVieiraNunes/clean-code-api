@@ -4,7 +4,7 @@ import { ServerError } from '../errors/server-error'
 import { type Controller } from '../protocols/controller'
 import { type EmailValidator } from '../protocols/email-validator'
 import { type HttpRequest, type HttpResponse } from '../protocols/http'
-import { badRequest } from './helpers/http-helper'
+import { badRequest, serverError } from './helpers/http-helper'
 
 export class SignUpController implements Controller {
   private readonly emailValidator: EmailValidator
@@ -33,10 +33,7 @@ export class SignUpController implements Controller {
         body: 'OK'
       }
     } catch (error) {
-      return {
-        statusCode: 500,
-        body: new ServerError()
-      }
+      return serverError()
     }
   }
 }
